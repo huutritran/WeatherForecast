@@ -20,7 +20,7 @@ android {
 
         testInstrumentationRunner = ConfigData.testInstrumentationRunner
 
-        buildConfigField("String","BASE_URL","\"https://my-json-server.typicode.com\"")
+        buildConfigField("String","BASE_URL","\"https://api.openweathermap.org\"")
     }
 
     buildTypes {

@@ -15,8 +15,8 @@ import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class SearchWeatherTest {
-    lateinit var mockWeatherRepository: WeatherRepository
-    lateinit var searchWeather: SearchWeather
+    private lateinit var mockWeatherRepository: WeatherRepository
+    private lateinit var searchWeather: SearchWeather
 
     @Before
     fun setup() {
