@@ -1,4 +1,4 @@
-package com.example.weatherforecast.domain.entities
+package com.example.weatherforecast.domain.models
 
 import java.util.Date
 

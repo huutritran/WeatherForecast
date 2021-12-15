@@ -3,7 +3,7 @@ package com.example.weatherforecast.domain.usecases
 import arrow.core.Either.Right
 import arrow.core.Either.Left
 import com.example.weatherforecast.core.Failure
-import com.example.weatherforecast.domain.entities.WeatherInfo
+import com.example.weatherforecast.domain.models.WeatherInfo
 import com.example.weatherforecast.domain.repositories.WeatherRepository
 import io.kotest.matchers.shouldBe
 import io.mockk.coEvery
