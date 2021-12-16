@@ -24,23 +24,24 @@ data class WeatherInfoItem(
             return WeatherInfoItem(
                 date = weatherInfo.date.toDisplayString(Config.Date.defaultFormat),
                 averageTemp = tempWithUnits(weatherInfo.averageTemperature, context),
-                pressure = weatherInfo.pressure.toString(),
+                pressure = weatherInfo.pressure.toInt().toString(),
                 humidity = weatherInfo.humidity.toString(),
                 description = weatherInfo.description
             )
         }
 
         private fun tempWithUnits(temp: Double, context: Context): String {
+            val tempInt = temp.toInt()
             return when (Config.DefaultQuery.units) {
                 Config.TemperatureUnit.Metric -> context.getString(
                     R.string.temperature_with_celsius,
-                    temp
+                    tempInt
                 )
                 Config.TemperatureUnit.Imperial -> context.getString(
                     R.string.temperature_with_fahrenheit,
-                    temp
+                    tempInt
                 )
-                else -> temp.toString()
+                else -> tempInt.toString()
             }
         }
     }

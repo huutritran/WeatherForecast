@@ -15,8 +15,8 @@
     <string name="error_search_key_min_length">Search criteria should contain at least 3 characters</string>
     
     <string name="humidity_with_unit">%1$s %%</string>
-    <string name="temperature_with_celsius">%1$f\u2103</string>
-    <string name="temperature_with_fahrenheit">%1$f\u2109</string>
+    <string name="temperature_with_celsius">%1$d\u2103</string>
+    <string name="temperature_with_fahrenheit">%1$d\u2109</string>
     <string name="ok">OK</string>
     <string name="cant_open_app">Can\'t open app</string>
     <string name="error_device_not_secure">For your secure, Weather Forecast can\'t be open on rooted phone</string>
