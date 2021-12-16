@@ -2,6 +2,7 @@ package com.example.weatherforecast.data.sources.remote.dto
 
 import com.example.weatherforecast.domain.models.WeatherInfo
 import com.google.gson.annotations.SerializedName
+import java.sql.Timestamp
 import java.util.*
 
 data class WeatherDto(
@@ -21,7 +22,7 @@ data class WeatherDto(
 ) {
     fun toWeatherInfo(): WeatherInfo {
         return WeatherInfo(
-            date = Date(dt),
+            date = Date(dt * 1000),
             averageTemperature = tempDto?.day ?: 0.0,
             pressure = pressure ?: 0.0,
             humidity = humidity ?: 0,
