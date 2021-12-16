@@ -27,9 +27,10 @@
 
             <TextView
                 android:id="@+id/tvDate"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_space"
+                android:layout_weight="1"
                 android:text="@{weather.date}"
                 android:textSize="@dimen/medium_text_size" />
         </LinearLayout>
@@ -47,9 +48,10 @@
 
             <TextView
                 android:id="@+id/tvAverageTemp"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_space"
+                android:layout_weight="1"
                 android:text="@{weather.averageTemp}"
                 android:textSize="@dimen/medium_text_size" />
 
@@ -68,9 +70,10 @@
 
             <TextView
                 android:id="@+id/tvPressure"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_space"
+                android:layout_weight="1"
                 android:text="@{weather.pressure}"
                 android:textSize="@dimen/medium_text_size" />
 
@@ -89,9 +92,10 @@
 
             <TextView
                 android:id="@+id/tvHumidity"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/small_space"
+                android:layout_weight="1"
                 android:text="@{@string/humidity_with_unit(weather.humidity)}"
                 android:textSize="@dimen/medium_text_size" />
 
