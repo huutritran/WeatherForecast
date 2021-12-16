@@ -1,7 +1,5 @@
 package com.example.weatherforecast.presentation
 
-import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.example.weatherforecast.R
@@ -12,10 +10,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(R.layout.activity_main) {
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-
-    }
 
     override fun onResume() {
         super.onResume()
