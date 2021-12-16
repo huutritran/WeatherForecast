@@ -1,7 +1,5 @@
 package com.example.weatherforecast.constant
 
-import com.example.weatherforecast.constant.Config.TemperatureUnit.Imperial
-
 class Config {
 
     object Date {
@@ -15,8 +13,7 @@ class Config {
 
     object DefaultQuery {
         const val numberOfDays = 7
-        const val apiKey = "appid"
-        const val units = Imperial
+        const val units = TemperatureUnit.Metric
     }
 
     object Cache {
