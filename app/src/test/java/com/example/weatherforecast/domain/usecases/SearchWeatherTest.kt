@@ -59,4 +59,17 @@ class SearchWeatherTest {
         //assert
         result shouldBe Left(SearchWeatherFailure.SearchMinLength(3))
     }
+
+    @Test
+    fun `should return error NotFound when WeatherRepository return empty`() = runBlockingTest {
+        //arrange
+        coEvery { mockWeatherRepository.getDailyForecast(any()) } returns Right(listOf())
+
+        //act
+        val result = searchWeather(SearchWeather.Params("saigon"))
+
+        //assert
+        result shouldBe Left(NotFound)
+        coEvery { mockWeatherRepository.getDailyForecast("saigon") }
+    }
 }

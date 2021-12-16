@@ -1,3 +1,7 @@
+import java.io.File
+import java.io.FileInputStream
+import java.util.*
+
 plugins {
     id("com.android.application")
     id("dagger.hilt.android.plugin")
@@ -7,12 +11,17 @@ plugins {
     id("kotlin-android")
 }
 
+val prop = Properties().apply {
+    load(FileInputStream(File(rootProject.rootDir, "apiKey.properties")))
+}
+val apiKey:String = prop.getProperty("API_KEY").toString()
+
 android {
     compileSdk = ConfigData.compileSdkVersion
     buildToolsVersion = ConfigData.buildToolsVersion
 
     defaultConfig {
-        applicationId = "com.example.joblogic"
+        applicationId = "com.example.weatherforecast"
         minSdk = ConfigData.minSdkVersion
         targetSdk = ConfigData.targetSdkVersion
         versionCode = ConfigData.versionCode
@@ -21,6 +30,7 @@ android {
         testInstrumentationRunner = ConfigData.testInstrumentationRunner
 
         buildConfigField("String","BASE_URL","\"https://api.openweathermap.org\"")
+        buildConfigField("String","API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
@@ -51,6 +61,7 @@ android {
 
 dependencies {
     implementation(Deps.roomRuntime)
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
     kapt(Deps.roomCompiler)
     implementation(Deps.roomKtx)
 

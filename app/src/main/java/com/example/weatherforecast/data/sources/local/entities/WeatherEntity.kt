@@ -9,6 +9,7 @@ import java.util.Date
 data class WeatherEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
+    val searchKey: String,
     val city: String,
     val date: Date,
     val averageTemperature: Double,

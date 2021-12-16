@@ -1,6 +1,7 @@
 package com.example.weatherforecast.data.repositories
 
 import arrow.core.Either.Right
+import com.example.weatherforecast.constant.Config
 import com.example.weatherforecast.data.sources.local.WeatherDAO
 import com.example.weatherforecast.data.sources.local.entities.WeatherEntity
 import com.example.weatherforecast.data.sources.remote.WeatherApi
@@ -41,39 +42,64 @@ class WeatherRepositoryImplTest {
     }
 
     @Test
-    fun `should receive data from cache when data exist`() = runBlockingTest {
+    fun `should receive data from cache when data valid`() = runBlockingTest {
         //arrange
         val mockCache = listOf(dummyEntity)
-        coEvery { mockWeatherDAO.getAllByCity(any()) } returns mockCache
+        coEvery { mockWeatherDAO.getAllBySearchKey(any()) } returns mockCache
 
         //act
-        val  result = repository.getDailyForecast("saigon")
+        val result = repository.getDailyForecast("saigon")
 
         //assert
         result shouldBe Right(listOf(dummyEntity.toWeatherInfo()))
-        coVerify { mockWeatherDAO.getAllByCity("saigon") }
+        coVerify { mockWeatherDAO.getAllBySearchKey("saigon") }
     }
 
     @Test
-    fun `should receive data from api when cache empty`() = runBlockingTest {
+    fun `should receive data from api when cache invalid`() = runBlockingTest {
         //arrange
-        coEvery { mockWeatherDAO.getAllByCity(any()) } returns emptyList()
+        coEvery { mockWeatherDAO.getAllBySearchKey(any()) } returns emptyList()
         coEvery { mockWeatherApi.getDailyWeather(any()) } returns dummyResponse
         every { mockWeatherDAO.insertALl(any()) } returns Unit
 
         //act
-        val  result = repository.getDailyForecast("saigon")
+        val result = repository.getDailyForecast("saigon")
 
         //assert
         result shouldBe Right(dummyResponse.toWeatherInfoList())
-        coVerify { mockWeatherDAO.getAllByCity("saigon") }
+        coVerify { mockWeatherDAO.getAllBySearchKey("saigon") }
         coVerify { mockWeatherApi.getDailyWeather(any()) }
         verify { mockWeatherDAO.insertALl(any()) }
+    }
+
+    @Test
+    fun `should delete cache when out of date`() = runBlockingTest {
+        //arrange
+        val outDateEntity = dummyEntity.copy(
+            createdDate = getDateBefore(Config.Cache.MAX_CACHE_DAYS + 1)
+        )
+        val mockCache = listOf(outDateEntity)
+        coEvery { mockWeatherDAO.getAllBySearchKey(any()) } returns mockCache
+        coEvery { mockWeatherDAO.deleteAllBySearchKey(any()) } returns Unit
+
+        //act
+        repository.getDailyForecast("saigon")
+
+        //
+        coVerify { mockWeatherDAO.deleteAllBySearchKey("saigon") }
+        coVerify { mockWeatherDAO.getAllBySearchKey("saigon") }
+    }
+
+    private fun getDateBefore(numberOfDate: Int): Date {
+        val today = Date()
+        val dateBeforeInMilliseconds = today.time - (numberOfDate * 24 * 60 * 60 * 1000)
+        return Date(dateBeforeInMilliseconds)
     }
 
     private companion object {
         val dummyEntity = WeatherEntity(
             id = 0,
+            searchKey = "",
             city = "saigon",
             date = Date(),
             averageTemperature = 0.0,

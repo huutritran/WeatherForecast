@@ -15,9 +15,10 @@ data class DailyWeatherResponse(
 
     fun toWeatherInfoList(): List<WeatherInfo> = weatherList.map { it.toWeatherInfo() }
 
-    fun toWeatherEntityList(): List<WeatherEntity> {
+    fun toWeatherEntityList(searchKey: String): List<WeatherEntity> {
         return weatherList.map {
             WeatherEntity(
+                searchKey = searchKey,
                 city = cityDto?.name.orEmpty(),
                 date = Date(it.dt),
                 averageTemperature = it.tempDto?.day ?: 0.0,
