@@ -20,7 +20,7 @@ data class DailyWeatherResponse(
             WeatherEntity(
                 searchKey = searchKey,
                 city = cityDto?.name.orEmpty(),
-                date = Date(it.dt),
+                date = Date(it.dt *  1000),
                 averageTemperature = it.tempDto?.day ?: 0.0,
                 pressure = it.pressure ?: 0.0,
                 humidity = it.humidity ?: 0,
